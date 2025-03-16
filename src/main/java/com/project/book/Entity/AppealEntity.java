@@ -2,36 +2,35 @@ package com.project.book.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "attendance")
+@Table(name = "appeals")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AttendanceEntity {
+public class AppealEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", nullable = false)
-    
+    @JoinColumn(name = "employee_id", nullable = false) // FK to EmployeeEntity
     private EmployeeEntity employee;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime createdAt;
 
-    private LocalTime checkInTime;
-    private LocalTime checkOutTime;
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
-    @Builder.Default 
-    private Status status = Status.PRESENT;
+    @Builder.Default
+    private Status status = Status.PENDING; // Default status
 
     public enum Status {
-        PRESENT, ABSENT, LEAVE
+        PENDING, APPROVED, REJECTED
     }
 }
