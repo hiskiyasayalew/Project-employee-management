@@ -30,6 +30,7 @@ public class EmployeeEntity {
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<AppealEntity> appeals;
+    
     private UserEntity user;
 
     @Column(nullable = false, length = 50)

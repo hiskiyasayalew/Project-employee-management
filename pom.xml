@@ -77,7 +77,11 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    <!-- password hashing secirty -->
+    <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
     <build>
         <plugins>
             <plugin>
