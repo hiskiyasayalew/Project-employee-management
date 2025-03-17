@@ -1,5 +1,6 @@
-<<<<<<< HEAD
 package com.project.book.Entity;
+
+
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,10 +36,4 @@ public class AppealEntity {
         PENDING, APPROVED, REJECTED
     }
 }
-=======
-package com.project.book.entity;
 
-public class MessageEntity {
-
-}
->>>>>>> 72b69e7dde00a799b9027a3fdf06798159ddff7b
