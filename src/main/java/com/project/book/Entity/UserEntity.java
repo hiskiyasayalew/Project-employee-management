@@ -6,17 +6,17 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users") 
-@Data 
-@NoArgsConstructor  
+@Table(name = "users")
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 50)
-    private String username;
+    @Column(name = "user_name", nullable = false, unique = true, length = 50)
+    private String userName;
 
     @Column(nullable = false, length = 255)
     private String password;
@@ -39,7 +39,13 @@ public class UserEntity {
         createdAt = LocalDateTime.now();
     }
 
+    // public void setDescription(String password2) {
+    // // TODO Auto-generated method stub
+    // throw new UnsupportedOperationException("Unimplemented method
+    // 'setDescription'");
+    // }
+
     // public enum Role {
-    //     ADMIN, EMPLOYEE
+    // ADMIN, EMPLOYEE
     // }
 }
