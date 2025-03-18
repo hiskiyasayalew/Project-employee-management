@@ -1,40 +1,80 @@
-// package com.project.book.Controller;
+package com.project.book.Controller;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.Map;
 
-// import com.project.book.Entity.UserEntity;
-// import com.project.book.Service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-// import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
 
-// import javax.security.auth.login.LoginException;
+import com.project.book.Entity.UserEntity;
+import com.project.book.Repository.AppealRepo;
+import com.project.book.Service.UserService;
 
-// @RestController
-// @RequestMapping("/users")
-// public class UserController {
-//     @Autowired
-//     private UserService userService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
 
-//     // Endpoint for user registration
-//     @PostMapping("/signup")
-//     public ResponseEntity<UserEntity> signup(@RequestBody UserEntity user) {
-//         UserEntity createdUser = userService.registerUser(user);
-//         return ResponseEntity.ok(createdUser);
-//     }
+@RestController
+@RequestMapping("/users")
+@RequiredArgsConstructor
+public class UserController {
 
-//     // Endpoint for user login
-//     @PostMapping("/login")
-//     public ResponseEntity<UserEntity> login(@RequestParam String username, @RequestParam String password)
-//             throws LoginException {
-//         UserEntity loginResponse = userService.loginUser(username, password);
+    private final UserService userService;
 
-//         if (loginResponse.getUser() != null) {
-//             return ResponseEntity.ok(loginResponse);
-//         } else {
-//             return ResponseEntity.status(401).body(loginResponse); // Unauthorized
-//         }
-//     }
+    @GetMapping("/all")
+    public ResponseEntity<List<UserEntity>> getAllUser() {
+        List<UserEntity> users = userService.getAllUsers();
 
-// }
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    // localhost:8080/users/id
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getOneUser(@PathVariable Long id) {
+        UserEntity user = userService.getUserById(id);
+
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(Map.of("error", "user by id " + id + " no found"), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // @PostMapping("/login")
+    // public ResponseEntity<UserEntity> login(@RequestParam String username,
+    // @RequestParam String password) {
+    // if (username != null && password != null) {
+    // UserEntity user = userService.getUserByUserName(username);
+    // if (user.getUsername() == username && user.getPassword() == password) {
+    // return new ResponseEntity<>(user, HttpStatus.OK);
+    // }
+    // }
+
+    // return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    // }
+
+    // // Endpoint for user registration
+    // @PostMapping("/signup")
+    // public ResponseEntity<UserEntity> signup(@RequestBody UserEntity user) {
+    // UserEntity createdUser = userService.registerUser(user);
+    // return ResponseEntity.ok(createdUser);
+    // }
+
+    // // Endpoint for user login
+    // @PostMapping("/login")
+    // public ResponseEntity<UserEntity> login(@RequestParam String username,
+    // @RequestParam String password)
+    // throws LoginException {
+    // UserEntity loginResponse = userService.loginUser(username, password);
+
+    // if (loginResponse.getUser() != null) {
+    // return ResponseEntity.ok(loginResponse);
+    // } else {
+    // return ResponseEntity.status(401).body(loginResponse); // Unauthorized
+    // }
+    // }
+
+}

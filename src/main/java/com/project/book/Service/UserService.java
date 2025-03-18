@@ -1,26 +1,30 @@
 package com.project.book.Service;
 
 import com.project.book.Entity.UserEntity;
+import com.project.book.Repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    // Method to register a user
-    public UserEntity registerUser(UserEntity user) {
-        // Implement your registration logic here
-        return user; // For now, return the same user object as a placeholder
+    private final UserRepository userRepository;
+
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    // Method to log in a user
-    public UserEntity loginUser(String username, String password) {
-        // Implement your login logic here
-        return new UserEntity(); // Placeholder, replace with actual logic
+    public UserEntity getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
-    // Method to retrieve user information
-    public UserEntity getUser() {
-        // Implement logic to get the current user
-        return new UserEntity(); // Placeholder, replace with actual logic
-    }
+    // public UserEntity getUserByUserName(String username) {
+    // return userRepository.findByUsername(username).orElse(null);
+    // }
+
 }
