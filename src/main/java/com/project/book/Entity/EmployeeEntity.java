@@ -34,28 +34,22 @@ public class EmployeeEntity {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_id", nullable = false, unique = true, referencedColumnName = "id")
     private UserEntity user;
 
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "employee_role",
-        joinColumns = {
+    @JoinTable(name = "employee_role", joinColumns = {
             @JoinColumn(name = "employee_id")
-        },
-        inverseJoinColumns = {
+    }, inverseJoinColumns = {
             @JoinColumn(name = "role_id")
-        }
-    )
-    private Set<RoleEntity> roles = new HashSet<>(); 
+    })
+    private Set<RoleEntity> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<AttendanceEntity> attendances; 
+    private Set<AttendanceEntity> attendances;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<AppealEntity> appeals;
-    
 
     @Column(nullable = false, length = 50)
     private String firstName;
@@ -79,7 +73,7 @@ public class EmployeeEntity {
 
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private Status status = Status.ACTIVE;  // Default value initialized
+    private Status status = Status.ACTIVE; // Default value initialized
 
     public enum Status {
         ACTIVE, INACTIVE

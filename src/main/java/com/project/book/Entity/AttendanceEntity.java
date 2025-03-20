@@ -17,18 +17,19 @@ public class AttendanceEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", nullable = false)
-    
+    @JoinColumn(name = "employee", nullable = false)
+
     private EmployeeEntity employee;
 
     @Column(nullable = false)
     private LocalDate date;
 
     private LocalTime checkInTime;
+
     private LocalTime checkOutTime;
 
     @Enumerated(EnumType.STRING)
-    @Builder.Default 
+    @Builder.Default
     private Status status = Status.PRESENT;
 
     public enum Status {

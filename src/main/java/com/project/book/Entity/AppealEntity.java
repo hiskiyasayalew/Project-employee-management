@@ -1,7 +1,5 @@
 package com.project.book.Entity;
 
-
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +17,7 @@ public class AppealEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", nullable = false) // FK to EmployeeEntity
+    @JoinColumn(name = "employee_id", nullable = false)
     private EmployeeEntity employee;
 
     @Column(nullable = false)
@@ -30,10 +28,9 @@ public class AppealEntity {
 
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private Status status = Status.PENDING; // Default status
+    private Status status = Status.PENDING;
 
     public enum Status {
         PENDING, APPROVED, REJECTED
     }
 }
-
